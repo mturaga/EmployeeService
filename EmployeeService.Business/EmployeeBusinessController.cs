@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EmployeeService.Business.Dto;
 using EmployeeService.Common;
+using Serilog;
 
 namespace EmployeeService.Business
 {
@@ -26,7 +27,7 @@ namespace EmployeeService.Business
             {
                 normalizedLimit = limit;
             }
-            
+            Log.Information("Business ==> GetEmployeeAsync");
             var employees = new List<Employee>()
             {
                 new Employee { EmployeeId = Guid.NewGuid(), FirstName= "Ma", LastName = "T"},
