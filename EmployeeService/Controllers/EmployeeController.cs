@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using EmployeeService.Business;
+using EmployeeService.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace EmployeeService.Controllers
 {
@@ -14,8 +16,11 @@ namespace EmployeeService.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeBusinessController _employeeBusinessController;
-        public EmployeeController(IEmployeeBusinessController employeeBusinessController)
+        private readonly IAppSettings _appSettings;
+
+        public EmployeeController(IEmployeeBusinessController employeeBusinessController, IOptions<AppSettings> appSettingOptions)
         {
+            _appSettings = appSettingOptions.Value;
             _employeeBusinessController = employeeBusinessController;
 
         }
