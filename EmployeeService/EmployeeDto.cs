@@ -7,9 +7,10 @@ namespace EmployeeService
 {
     public class EmployeeDto
     {
-        public string Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime DOB { get; set; }
+        public string EmployeeId { get; set; }
+        public string Name { get; set; }
+        public double Salary { get; set; }
+        public int Age { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

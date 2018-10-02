@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using EmployeeService.Business;
+using EmployeeService.Business.Dto;
 using EmployeeService.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -30,12 +31,22 @@ namespace EmployeeService.Controllers
         [HttpGet]
         public async Task<ActionResult> GetEmployees(int skip = 0, int limit = 25)
         {
-            Log.Information("GetEmployee --> Start");
-            var employees = await _employeeBusinessController.GetEmployeesAsync(skip, limit);
-            var mappedEmployees = employees.Select(Mapper.Map<EmployeeDto>).ToList();
-            Log.Information("GetEmployee --> Done");
+            var employees = new List<Employee>(); ;
+            try
+            {
+                Log.Information("GetEmployee --> Start");
+                employees = await _employeeBusinessController.GetEmployeesAsync(skip, limit);
+                var mappedEmployees = employees.Select(Mapper.Map<EmployeeDto>).ToList();
+                Log.Information("GetEmployee --> Done");
+               
+            }
+            catch (Exception ex)
+            {
+
+                Log.Error(ex.StackTrace);
+            }
             return Ok(employees);
-           
+
         }
     }
 }

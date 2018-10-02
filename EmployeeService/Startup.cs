@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmployeeService.Business;
+using EmployeeService.Business.Clients;
 using EmployeeService.Common;
+using EmployeeService.Framework;
+using EmployeeService.Framework.Options;
 using EmployeeService.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -50,7 +53,12 @@ namespace EmployeeService
             services.AddSingleton<IAppSettings>(_appSetting);
             services.AddScoped<IEmployeeBusinessController, EmployeeBusinessController>();
 
-            AutoMapperConfiguration.Configure();           
+            AutoMapperConfiguration.Configure();
+
+            services
+                .AddPolicies(Configuration)
+                .AddHttpClient<IEmployeeClient, EmployeeClient, EmployeeClientOptions>(Configuration, nameof(ApplicationOptions.EmployeeClient));
+           
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -70,6 +78,7 @@ namespace EmployeeService
             });           
 
             app.UseAuthentication();
+            app.UseMiddleware<CustomResponseHeaderMiddleware>();
             app.UseMiddleware<LoggingMiddleware>();            
             app.UseMvc();
         }

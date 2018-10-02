@@ -10,9 +10,8 @@ namespace EmployeeService
     {
         public AutoMapperConfigurationProfile():base()
         {
-            CreateMap<Business.Dto.Employee, EmployeeDto>()
-                .ForMember(dest => dest.DOB, opt => opt.Ignore())
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.EmployeeId.ToString()));
+            CreateMap<Business.Dto.Employee, EmployeeDto>()               
+                .ForMember(dest => dest.EmployeeId, opt => opt.MapFrom(src => src.EmployeeId.ToString()));
         }
     }
 }

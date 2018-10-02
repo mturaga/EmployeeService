@@ -9,5 +9,6 @@ namespace EmployeeService.Common
         public int DefaultPageSize { get; set; }
         public int MaxPageSize { get; set; }
         public List<UrlItem> DomainUrls { get; set; }
+        public string EmployeeDataServiceUrl { get; set; }
     }
 }
