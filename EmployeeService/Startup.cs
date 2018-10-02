@@ -67,9 +67,7 @@ namespace EmployeeService
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("../swagger/v1/swagger.json", "Employee API V1");
-            });
-
-           
+            });           
 
             app.UseAuthentication();
             app.UseMiddleware<LoggingMiddleware>();            
