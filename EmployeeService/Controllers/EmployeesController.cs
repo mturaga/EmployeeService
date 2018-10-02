@@ -15,12 +15,12 @@ namespace EmployeeService.Controllers
 {
     [Route("api/employees")]
     [ApiController]
-    public class EmployeeController : ControllerBase
+    public class EmployeesController : ControllerBase
     {
         private readonly IEmployeeBusinessController _employeeBusinessController;
         private readonly IAppSettings _appSettings;
 
-        public EmployeeController(IEmployeeBusinessController employeeBusinessController, IOptions<AppSettings> appSettingOptions, ILogger<EmployeeBusinessController> logger)
+        public EmployeesController(IEmployeeBusinessController employeeBusinessController, IOptions<AppSettings> appSettingOptions, ILogger<EmployeeBusinessController> logger)
         {
             _appSettings = appSettingOptions.Value;
             _employeeBusinessController = employeeBusinessController;
