@@ -79,7 +79,7 @@ namespace EmployeeService
 
             app.UseAuthentication();
             app.UseMiddleware<CustomResponseHeaderMiddleware>();
-            app.UseMiddleware<LoggingMiddleware>();            
+           //app.UseMiddleware<LoggingMiddleware>();            
             app.UseMvc();
         }
     }
