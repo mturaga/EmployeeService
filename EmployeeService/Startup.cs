@@ -53,8 +53,7 @@ namespace EmployeeService
             services.AddSingleton<IAppSettings>(_appSetting);
             services.AddScoped<IEmployeeBusinessController, EmployeeBusinessController>();
 
-            AutoMapperConfiguration.Configure();
-
+            services.AddSingleton(AutoMapperConfiguration.Configure());
             services
                 .AddPolicies(Configuration)
                 .AddHttpClient<IEmployeeClient, EmployeeClient, EmployeeClientOptions>(Configuration, nameof(ApplicationOptions.EmployeeClient));

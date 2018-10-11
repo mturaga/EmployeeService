@@ -8,7 +8,8 @@ namespace EmployeeService.UnitTests
         [TestMethod]
         public void AssertAutoMapperConfigurationIsValid()
         {
-            Assert.AreEqual(1, 1); 
+            var mapper = AutoMapperConfiguration.Configure();
+            mapper.ConfigurationProvider.AssertConfigurationIsValid();
         }
     }
 }

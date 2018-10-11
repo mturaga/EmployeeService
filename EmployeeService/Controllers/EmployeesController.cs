@@ -20,11 +20,14 @@ namespace EmployeeService.Controllers
     {
         private readonly IEmployeeBusinessController _employeeBusinessController;
         private readonly IAppSettings _appSettings;
+        private readonly IMapper _mapper;
+        
 
-        public EmployeesController(IEmployeeBusinessController employeeBusinessController, IOptions<AppSettings> appSettingOptions, ILogger<EmployeeBusinessController> logger)
+        public EmployeesController(IEmployeeBusinessController employeeBusinessController, IOptions<AppSettings> appSettingOptions, ILogger<EmployeeBusinessController> logger, IMapper mapper)
         {
             _appSettings = appSettingOptions.Value;
             _employeeBusinessController = employeeBusinessController;
+            _mapper = mapper;
 
         }
 
@@ -36,7 +39,7 @@ namespace EmployeeService.Controllers
             {
                 Log.Information("GetEmployee --> Start");
                 employees = await _employeeBusinessController.GetEmployeesAsync(skip, limit);
-                var mappedEmployees = employees.Select(Mapper.Map<EmployeeDto>).ToList();
+                var mappedEmployees = employees.Select(_mapper.Map<EmployeeDto>).ToList();
                 Log.Information("GetEmployee --> Done");
                
             }

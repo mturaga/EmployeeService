@@ -8,14 +8,15 @@ namespace EmployeeService
 {
     public class AutoMapperConfiguration
     {
-        public static void Configure()
+        public static IMapper Configure()
         {
-            Mapper.Initialize(x =>
-            {
+            var mapper = new MapperConfiguration((x) => {
+
                 x.AddProfile<AutoMapperConfigurationProfile>();
             });
 
-            Mapper.Configuration.AssertConfigurationIsValid();
+            return mapper.CreateMapper();
+            
         }
     }
 }
