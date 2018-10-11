@@ -12,8 +12,7 @@ namespace EmployeeService.UnitTests
         [Test]
         public void AssertAutoMapperConfigurationIsValid()
         {
-            Assert.AreEqual(1, 1); ;
-
+            Assert.AreEqual(1, 1); 
         }
     }
 }
