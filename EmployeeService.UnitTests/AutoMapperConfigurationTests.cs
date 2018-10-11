@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NUnit;
-using NUnit.Framework;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EmployeeService.UnitTests
 {
-    [TestFixture]
+    [TestClass]
     public class AutoMapperConfigurationTests
     {
-        [Test]
+        [TestMethod]
         public void AssertAutoMapperConfigurationIsValid()
         {
             Assert.AreEqual(1, 1); 
