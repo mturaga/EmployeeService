@@ -5,18 +5,25 @@ mono: none
 dotnet: 2.1.402
 branches:
   only:
-    - master
-    - develop
+  - master
+  - develop
 before_script:
-  - chmod a+x ./travis-build.sh
-  - chmod a+x ./run-tests.sh
-  - chmod a+x ./after-success.sh
+- chmod a+x ./travis-build.sh
+- chmod a+x ./run-tests.sh
+- chmod a+x ./after-success.sh
 script:
-  - ./travis-build.sh
-  - ./run-tests.sh
+- "./travis-build.sh"
+- "./run-tests.sh"
 after_success:
-  - ./after-success.sh
+- "./after-success.sh"
 notifications:
   email:
     on_success: never
     on_failure: always
+deploy:
+  provider: gae
+  keyfile: YOUR SERVICE ACCOUNT JSON FILE
+  project: velvety-being-214804
+before_install:
+- openssl aes-256-cbc -K $encrypted_6dd62c5136aa_key -iv $encrypted_6dd62c5136aa_iv
+  -in client-secret.json.enc -out client-secret.json -d

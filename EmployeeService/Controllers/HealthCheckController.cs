@@ -18,5 +18,14 @@ namespace EmployeeService.Controllers
 
             return Ok();
         }
+
+
+        [HttpGet]
+        [Route("Dummy")]
+        public IActionResult Dummy()
+        {
+
+            return Ok();
+        }
     }
 }
