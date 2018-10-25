@@ -6,6 +6,7 @@ using AutoMapper;
 using EmployeeService.Business;
 using EmployeeService.Business.Dto;
 using EmployeeService.Common;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -16,31 +17,23 @@ namespace EmployeeService.Controllers
 {
     [Route("api/employees")]
     [ApiController]
-    public class EmployeesController : ControllerBase
+    public class EmployeesController : Controller
     {
-        private readonly IEmployeeBusinessController _employeeBusinessController;
-        private readonly IAppSettings _appSettings;
-        private readonly IMapper _mapper;
-        
-
-        public EmployeesController(IEmployeeBusinessController employeeBusinessController, IOptions<AppSettings> appSettingOptions, ILogger<EmployeeBusinessController> logger, IMapper mapper)
+        private readonly IMediator _mediator;
+        public EmployeesController(ILogger<EmployeeBusinessController> logger, IMediator mediator) 
         {
-            _appSettings = appSettingOptions.Value;
-            _employeeBusinessController = employeeBusinessController;
-            _mapper = mapper;
-
-        }
+            _mediator = mediator; 
+        }  
 
         [HttpGet]
         public async Task<ActionResult> GetEmployees(int skip = 0, int limit = 25)
         {
-            var employees = new List<Employee>(); ;
+            var response = new ServiceResponse<List<Employee>>();
+            
             try
             {
-                Log.Information("GetEmployee --> Start");
-                employees = await _employeeBusinessController.GetEmployeesAsync(skip, limit);
-                var mappedEmployees = employees.Select(_mapper.Map<EmployeeDto>).ToList();
-                Log.Information("GetEmployee --> Done");
+                var employees = await _mediator.Send(new Business.Application.Employees.Queries.GetEmployeeQuery { PageSize = limit, Limit = skip });
+                response.Data = employees;
                
             }
             catch (Exception ex)
@@ -48,7 +41,7 @@ namespace EmployeeService.Controllers
 
                 Log.Error(ex.StackTrace);
             }
-            return Ok(employees);
+            return Ok(response);
 
         }
     }

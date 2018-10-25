@@ -17,6 +17,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
+using MediatR;
+using MediatR.Pipeline;
+using System.Reflection;
 
 namespace EmployeeService
 {
@@ -32,7 +35,8 @@ namespace EmployeeService
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
+        {           
+            services.AddMediatR(typeof(Business.Application.Employees.Queries.GetEmployeeQueryHandler).GetTypeInfo().Assembly);
 
             services.AddSwaggerGen(c =>
             {
@@ -57,8 +61,8 @@ namespace EmployeeService
             services
                 .AddPolicies(Configuration)
                 .AddHttpClient<IEmployeeClient, EmployeeClient, EmployeeClientOptions>(Configuration, nameof(ApplicationOptions.EmployeeClient));
-           
 
+           
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
