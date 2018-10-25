@@ -20,6 +20,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using MediatR;
 using MediatR.Pipeline;
 using System.Reflection;
+using EmployeeService.Business.Infrastructure;
 
 namespace EmployeeService
 {
@@ -35,7 +36,10 @@ namespace EmployeeService
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {           
+        {
+
+            //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestLoggingBehavior<,>));            
             services.AddMediatR(typeof(Business.Application.Employees.Queries.GetEmployeeQueryHandler).GetTypeInfo().Assembly);
 
             services.AddSwaggerGen(c =>
